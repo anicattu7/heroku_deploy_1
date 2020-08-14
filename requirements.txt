@@ -1,0 +1,4 @@
+Flask
+gunicorn
+sqla_wrapper
+psycopg2

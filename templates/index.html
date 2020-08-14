@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--
+
+    <p>I am very proud of it :)</p>
+
+    <form method="post" action="/">
+        <p>Please enter your name: <input type="text" name="username"> </p>
+        <button type="submit">Submit</button>
+    </form>-->
+
+    {% if user %}
+        <h1>Welcome to my homepage, {{user.username}}!</h1>
+    {% else %}
+        <h1>Welcome to the forum, stranger!</h1>
+    {% endif %}
+
+</body>
+</html>
