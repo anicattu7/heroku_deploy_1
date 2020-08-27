@@ -5,7 +5,7 @@
         <title>{% block title %}Base{% endblock title %} | Ninja Tech Forum</title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="/static/css/style.css">
     </head>
 
     <body>
@@ -21,6 +21,9 @@
                     {% if user %}
                     <li class="nav-item">
                         <a class="nav-link" href="#">{{user.username}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/create-topic">Create topic</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
