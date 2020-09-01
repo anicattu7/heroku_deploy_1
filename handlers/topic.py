@@ -80,7 +80,7 @@ def topic_details(topic_id):
     # get comments for this topic
     comments = db.query(Comment).filter_by(topic=topic).all()
     return render_template("topic/topic_details.html", topic=topic, user=user,
-                           csrf_token=create_csrf_token(user.username))
+                           csrf_token=create_csrf_token(user.username), comments=comments)
 
 
 @topic_handlers.route("/topic/<topic_id>/edit", methods=["GET", "POST"])
