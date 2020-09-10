@@ -1,9 +1,28 @@
-import json
 import os
-import requests
+import random
+from huey import RedisHuey
+import requests, json
 
 
-"""def send_email(receiver_email, subject, text):
+# worker
+huey = RedisHuey(url=os.getenv('REDIS_URL'))
+
+
+# task
+@huey.task(retries=5, retry_delay=5)
+def get_random_num():
+    print("This is a task to get a random number")
+    num = random.randint(1, 3)
+    print("Random number is {}".format(num))
+
+    if num == 1:
+        return True
+    else:
+        raise Exception("Error in the worker... :(")
+
+
+@huey.task(retries=10, retry_delay=600)
+def send_email_task(receiver_email, subject, text):
     sender_email = os.getenv("MY_SENDER_EMAIL")  # Your website's official email address
     api_key = os.getenv('SENDGRID_API_KEY')
 
@@ -33,23 +52,8 @@ import requests
         print("Sent to SendGrid")
         print(response.text)
     else:
-        print("No env vars or no email address")"""
-
-import os
-from tasks import send_email_task
-
-
-def send_email(receiver_email, subject, text):
-
-    if os.getenv('REDIS_URL'):
-        # if the web app is on Heroku, call the "send email" task
-        send_email_task(receiver_email, subject, text)
-
-    else:
-        # but if you're on localhost, just simulate sending email in the console
-        print("You are on localhost, so the email will not be really sent.")
-        print("---------------EMAIL MESSAGE----------------")
-        print("Email recipient: {}".format(receiver_email))
-        print("Subject: {}".format(subject))
-        print(text)
-        print("---------------EMAIL MESSAGE----------------")
+        print("No env vars or no email address.")
+        print("The email was not sent.")
+        print("If it was sent, this would be the subject: {}".format(subject))
+        print("This would be the text: {}".format(text))
+        print("And this would be the receiver: {}".format(receiver_email))
